@@ -89,14 +89,14 @@ function sshLogin() {
 	# 默认端口号 22
 	local port=${config[3]}
 	if [[ $port == "" ]]; then
-		port="-p 22"
+		port="22"
 	fi
 
 	# 开始登录
 	echo -e "\n\n==> 正在登录【${config[0]}】，请稍等...\n"
 	sleep 1
 	expect -c "
-	    spawn ssh $user@${config[2]} $port
+	    spawn ssh $user@${config[2]} -p $port
 	    expect {
 	        \"*assword\" {set timeout 6000; send \"${config[4]}\n\"; exp_continue ; sleep 3; }
 	        \"yes/no\" {send \"yes\n\"; exp_continue;}
