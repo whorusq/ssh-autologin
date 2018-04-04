@@ -45,7 +45,9 @@ function menu {
 			CONFIG_ARR[$serverNum]=$line
 			# serverName=$(echo $line | awk  -F::: '{print $1}')
 			# serverIp=$(echo $line | awk  -F::: '{print $3}')
-			echo -e "[\033[32m$serverNum\033[0m] ${config[2]} - ${config[0]}"
+            spacenum=`expr 16 - ${#config[2]}`
+            spaces=$(seq -s ' ' $spacenum | sed 's/[0-9]//g')
+			echo -e "[\033[32m$serverNum\033[0m] ${config[2]}$spaces- ${config[0]}"
 			serverNum=$(($serverNum+1))
 		fi
 	done < $FILE_SERVER_LIST
