@@ -10,8 +10,9 @@
 # 		$ echo "alias goto=\"$PWD/goto.sh\"" >> ~/.zshrc
 # 		$ source ~/.zshrc
 # 		$ goto
-# Author: whoru.S.Q <whoru.sun@gmail.com>
-# Version: 1.0
+# Author: whoru.S.Q <whoru@sqiang.net>
+# Link: http://sqiang.net
+# Version: 1.1
 ################################################
 
 # 服务器列表文件
