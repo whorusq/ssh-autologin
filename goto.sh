@@ -12,7 +12,7 @@
 # 		$ goto
 # Author: whoru.S.Q <whoru@sqiang.net>
 # Link: http://sqiang.net
-# Version: 1.1
+# Version: 1.2
 ################################################
 
 # 服务器列表文件
@@ -48,7 +48,7 @@ function menu {
 			# serverIp=$(echo $line | awk  -F::: '{print $3}')
             spacenum=`expr 16 - ${#config[2]}`
             spaces=$(seq -s ' ' $spacenum | sed 's/[0-9]//g')
-			echo -e "[\033[32m$serverNum\033[0m] ${config[2]}$spaces- ${config[0]}"
+			echo -e "🔸 ${config[2]}$spaces- \033[32m$serverNum\033[0m.${config[0]}"
 			serverNum=$(($serverNum+1))
 		fi
 	done < $FILE_SERVER_LIST
@@ -101,7 +101,7 @@ function sshLogin {
 	expect -c "
 	    spawn ssh $user@${config[2]} -p $port
 	    expect {
-	        \"*assword\" {set timeout 6000; send \"${config[4]}\n\"; exp_continue ; sleep 3; }
+	        \"*assword\" {set timeout 6000; send \"${config[4]}\r\n\"; exp_continue ; sleep 3; }
 	        \"yes/no\" {send \"yes\n\"; exp_continue;}
 	        \"Last*\" {  send_user \"\n已经成功登录【${config[0]}】\n\";}
 	    }
