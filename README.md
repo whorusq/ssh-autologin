@@ -1,13 +1,9 @@
 SSH 自动登录脚本
 ---
 
-### 执行效果预览
+### 执行效果演示
 
-![./screenshot.png](./screenshot.png)
-
-PS：标题栏显示当前登录的服务器名称。
-
-![./screenshot.png](./screenshot2.png)
+![./screenshot.gif](./screenshot.gif)
 
 ### 如何使用当前脚本
 
