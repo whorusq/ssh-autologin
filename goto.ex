@@ -6,7 +6,6 @@ set PORT [lindex $argv 2]
 set USER_NAME [lindex $argv 3]
 set PASSWORD [lindex $argv 4]
 
-
 spawn ssh -p $PORT $USER_NAME@$IP
 
 expect {

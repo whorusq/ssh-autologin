@@ -3,7 +3,7 @@
 # 基于 shell 脚本，实现 ssh 自动登录操作
 # Usage:
 # 		1. 修改 goto.conf ，追加服务器列表
-# 		2. $ chmod u+x goto.sh
+# 		2. $ chmod u+x goto.sh goto.ex
 # 		3. $ ./goto.sh
 #
 # 		或使用如下方式将 goto 加入当前用户全局使用：
@@ -11,12 +11,12 @@
 # 		$ source ~/.zshrc
 # 		$ goto
 # Author: whoru.S.Q <whoru@sqiang.net>
-# Link: http://sqiang.net
-# Version: 1.2
+# Version: 1.5
 ################################################
 
 # 服务器列表文件
-FILE_SERVER_LIST=$(cd "$(dirname "$0")";pwd)"/goto.conf"
+BASE_PATH=$(cd "$(dirname "$0")";pwd)
+FILE_SERVER_LIST=$BASE_PATH"/goto.conf"
 
 # 暂存服务器列表，用于登录操作
 CONFIG_ARR=()
@@ -62,10 +62,10 @@ function menu {
 function handleChoice {
 	read -n 1 choice
 	local serverListLength=${#CONFIG_ARR[@]}
-	if [[ $choice -lt 1 || $choice -gt serverListLength ]]; then
+	if [[ "$choice" -lt 1 || "$choice" -gt serverListLength ]]; then
 		echo -en "\n\033[31m无效的序号[ $choice ], 是否重新输入( y 是 | n 否 ):\033[0m"
 		read -n 1 retry
-		if [[ -n $retry && "$retry" = "y" ]]; then
+		if [[ -n "$retry" && "$retry" = "y" ]]; then
 			clear
 			menu ;
 		else
@@ -98,18 +98,7 @@ function sshLogin {
 	# 开始登录
 	echo -e "\n\n\033[32m==>\033[0m 正在登录【\033[32m${config[0]}\033[0m】，请稍等...\n"
 	sleep 1
-	expect -c "
-	    spawn ssh $user@${config[2]} -p $port
-	    expect {
-	        \"*assword\" {set timeout 6000; send \"${config[4]}\r\n\"; exp_continue ; sleep 3; }
-	        \"yes/no\" {send \"yes\n\"; exp_continue;}
-	        \"Last*\" {  send_user \"\n已经成功登录【${config[0]}】\n\";}
-	    }
-	    if {\"${config[5]}\" != \"\"} {
-			expect \"*]#\"
-			send \"${config[5]}\r\"
-		}
-		interact"
+	$(which expect) $BASE_PATH/goto.ex ${config[0]} ${config[2]} $port $user ${config[4]}
 	echo -e "\n\033[32m==>\033[0m 您已退出【\033[32m${config[0]}\033[0m】\n"
 }
 
