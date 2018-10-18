@@ -1,11 +1,11 @@
 SSH 自动登录脚本
 ---
 
-### 执行效果演示
+### 1. 执行效果演示
 
 ![./screenshot.gif](./screenshot.gif)
 
-### 如何使用当前脚本
+### 2. 如何使用当前脚本
 
 
 1. `git clone https://github.com/whorusq/shell-ssh-autologin.git`
@@ -22,9 +22,9 @@ SSH 自动登录脚本
 		➜  ~ goto
 		```
 
-### 常见问题
+### 3. 常见问题
 
-#### 提示没有 expect 或 spawn 命令
+#### 3.1. 提示没有 expect 或 spawn 命令
 
 当前脚本主要基于 expect 使用 spawn 实现。
 
@@ -60,7 +60,7 @@ Expect 是一个用来处理交互的工具，通常用于需要手动输入数�
 	➜  ln -s /usr/local/bin/expect /usr/bin/expect
 	```
 
-#### 特殊字符转义
+#### 3.2. 特殊字符转义
 
 如果密码中有特殊字符，需要做转义处理，否则使用 expect 的 send 语法是无法发送成功的，具体需要转义的字符如下：
 
