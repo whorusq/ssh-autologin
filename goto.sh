@@ -11,7 +11,7 @@
 # 		$ source ~/.zshrc
 # 		$ goto
 # Author: whoru.S.Q <whoru@sqiang.net>
-# Version: 1.5
+# Version: 1.5.1
 ################################################
 
 # 服务器列表文件
@@ -38,6 +38,7 @@ function menu {
 	echo "-------------------------------------"
 	local serverNum=1 # 服务器列表序号
 	local config=()
+	local MENUS=""
 	while read line || [ -n "$line" ]
 	do
 		if [[ ${line} != \#* && "$line" != "" ]] ; then
@@ -48,10 +49,11 @@ function menu {
 			# serverIp=$(echo $line | awk  -F::: '{print $3}')
             spacenum=`expr 16 - ${#config[2]}`
             spaces=$(seq -s ' ' $spacenum | sed 's/[0-9]//g')
-			echo -e "🔸 ${config[2]}$spaces- \033[32m$serverNum\033[0m.${config[0]}"
+			MENUS=$MENUS"🔸 ${config[2]}$spaces- \033[32m$serverNum\033[0m.${config[0]} \n"
 			serverNum=$(($serverNum+1))
 		fi
 	done < $FILE_SERVER_LIST
+	echo -en $MENUS # 输出菜单
 	IFS=$IFS_OLD # 还原分隔符
 	echo "-------------------------------------"
 	echo -en "请输入\033[32m序号\033[0m选择要登录的服务器: "
