@@ -62,7 +62,7 @@ function menu {
 
 # 处理用户输入
 function handleChoice {
-	read -n 1 choice
+	read -n 2 choice
 	local serverListLength=${#CONFIG_ARR[@]}
 	if [[ "$choice" -lt 1 || "$choice" -gt serverListLength ]]; then
 		echo -en "\n\033[31m无效的序号[ $choice ], 是否重新输入( y 是 | n 否 ):\033[0m"
