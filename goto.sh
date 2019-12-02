@@ -36,7 +36,7 @@ function menu {
 	# 读取配置文件，显示待操作服务器列表
 	clear
 	echo "-------------------------------------"
-	local serverNum=1 # 服务器列表序号
+	local serverNum=1 # 服务器列表索引
 	local config=()
 	local MENUS=""
 	while read line || [ -n "$line" ]
@@ -47,9 +47,12 @@ function menu {
 			CONFIG_ARR[$serverNum]=$line
 			# serverName=$(echo $line | awk  -F::: '{print $1}')
 			# serverIp=$(echo $line | awk  -F::: '{print $3}')
-            spacenum=`expr 16 - ${#config[2]}`
-            spaces=$(seq -s ' ' $spacenum | sed 's/[0-9]//g')
+			# 计算空格数，使 IP 占用固定的最大长度，以美化菜单
+			spacenum=`expr 16 - ${#config[2]}`
+			spaces=$(seq -s ' ' $spacenum | sed 's/[0-9]//g')
+			# 拼接菜单中的一行服务器信息
 			MENUS=$MENUS"🔸 ${config[2]}$spaces- \033[32m$serverNum\033[0m.${config[0]} \n"
+			# 累加服务器索引，直到配置文件读取完毕
 			serverNum=$(($serverNum+1))
 		fi
 	done < $FILE_SERVER_LIST
