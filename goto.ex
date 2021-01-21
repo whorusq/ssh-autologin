@@ -11,7 +11,7 @@ spawn ssh -p $PORT $USER_NAME@$IP
 trap {
     set rows [stty rows]
     set cols [stty columns]
-    stty rows $rows columns $cols < $spawn_out(slave, name)
+    stty rows $rows columns $cols < $spawn_out(slave,name)
 } WINCH
 
 expect {
