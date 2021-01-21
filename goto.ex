@@ -8,6 +8,12 @@ set PASSWORD [lindex $argv 4]
 
 spawn ssh -p $PORT $USER_NAME@$IP
 
+trap {
+    set rows [stty rows]
+    set cols [stty columns]
+    stty rows $rows columns $cols < $spawn_out(slave, name)
+} WINCH
+
 expect {
     -timeout 300
     "*assword" { send "$PASSWORD\r\n"; exp_continue ; sleep 3; }
