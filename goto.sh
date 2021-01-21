@@ -3,8 +3,10 @@
 # 基于 shell 脚本，实现 ssh 自动登录操作
 # Usage:
 # 		1. 修改 goto.conf ，追加服务器列表
-# 		2. $ chmod u+x goto.sh goto.ex
-# 		3. $ ./goto.sh
+#       2. mkdir $HOME/.autologin/
+#       3. cp $PWD/goto.conf $HOME/.autologin/
+# 		4. $ chmod u+x goto.sh goto.ex
+# 		5. $ ./goto.sh
 #
 # 		或使用如下方式将 goto 加入当前用户全局使用：
 # 		$ echo "alias goto=\"$PWD/goto.sh\"" >> ~/.zshrc
@@ -16,7 +18,7 @@
 
 # 服务器列表文件
 BASE_PATH=$(cd "$(dirname "$0")";pwd)
-FILE_SERVER_LIST=$BASE_PATH"/goto.conf"
+FILE_SERVER_LIST=$HOME"/.autologin/goto.conf"
 
 # 暂存服务器列表，用于登录操作
 CONFIG_ARR=()
