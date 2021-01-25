@@ -6,14 +6,25 @@ set PORT [lindex $argv 2]
 set USER_NAME [lindex $argv 3]
 set PASSWORD [lindex $argv 4]
 
-spawn ssh -p $PORT $USER_NAME@$IP
-
 trap {
     set rows [stty rows]
     set cols [stty columns]
     stty rows $rows columns $cols < $spawn_out(slave,name)
 } WINCH
 
+
+# kinit 登陆
+spawn kinit
+expect {
+    -timeout 300
+    "*assword" {
+        send "$PASSWORD\r\n";
+        sleep 1;
+        }
+}
+
+
+spawn ssh -p $PORT $USER_NAME@$IP
 expect {
     -timeout 300
     "*assword" { send "$PASSWORD\r\n"; exp_continue ; sleep 3; }
