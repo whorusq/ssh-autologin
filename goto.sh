@@ -69,7 +69,7 @@ function menu {
 function handleChoice {
     read -n 2 choice
     local serverListLength=${#CONFIG_ARR[@]}
-    if [[ "$choice" -lt 1 || "$choice" -gt serverListLength ]]; then
+    if [[ ! "$choice" =~ ^[1-9]+$ || "$choice" -lt 1 || "$choice" -gt serverListLength ]]; then
         echo -en "\n\033[31m无效的序号[ $choice ], 是否重新输入( y 是 | n 否 ):\033[0m"
         read -n 1 retry
         if [[ -n "$retry" && "$retry" = "y" ]]; then
